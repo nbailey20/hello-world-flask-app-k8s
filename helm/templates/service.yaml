@@ -7,7 +7,9 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
+    - port: {{ .Values.service.lbPort }}
+      targetPort: {{ .Values.service.containerPort }}
       protocol: TCP
       name: http
+  selector:
+    app.kubernetes.io/instance: {{ .Release.Name }}
